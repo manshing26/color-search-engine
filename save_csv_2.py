@@ -47,6 +47,7 @@ def savefunction(path,min_k,max_k):
         t0 = time.time()
         speed_count = 0
         
+        ## color extraction
         for filename in tqdm(file_list_checked):
             result = kMeans(filename, min_k, max_k)
             name = filename.split('\\')
@@ -54,21 +55,23 @@ def savefunction(path,min_k,max_k):
             add = np.append(names, result, axis=1)
             df = df.append(pd.DataFrame(add, columns=['Image','R','G','B']), ignore_index=True)
             flag = name[-1]
-            speed_count += 1
+            speed_count += 1 # for testing speed
     except:
         with open((path+'temp.txt'),'w+') as f:
             f.write(flag)
         print('\nExtraction aborted, .csv file and temp.txt exported')
     finally:
-        if df.empty != True:
+        if df.empty != True: #save temp.csv file if aborted or error occur
             save_path = path+temp_name
             df.to_csv(save_path, header=True)
             
-        if flag == file_list[-1].split('\\')[-1]:
+        if flag == file_list[-1].split('\\')[-1]: #remove temp file when extraction completed
             save_path = path+df_name
             df.to_csv(save_path, header=True)
-            os.remove((path+'temp.txt'))
-            os.remove((path+temp_name))
+            if os.path.isfile((path+'temp.txt')):
+                os.remove((path+'temp.txt'))
+            if os.path.isfile((path+temp_name)):
+                os.remove((path+temp_name))
             
             
             print('\nExtraction completed, .csv file exported')
@@ -77,6 +80,7 @@ def savefunction(path,min_k,max_k):
         if speed_count != 0:
             print(f'Speed: {(time.time()-t0)/speed_count}s for each image')
 
+## check the temp.txt file and return the list of files(dropped)
 def check_marker(file_list, path):
     exist = False
     try:
