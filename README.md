@@ -1,18 +1,21 @@
-# search-enhance-project-lean
-Lean version of search-enhance-project
+# Color search engine
 
-Python script:
+### Objective
+- Preprocessing the image for color extraction
 
-retrieve.py: extract the color of image and compare to the csv file
+- Automatically determine the numbers of color of an image and extract the RGB values
 
-save_csv_2: save csv file
+- Apply reverse indexing strategy for the color searching engine
 
-Library:
+### File description
+- retrieve.py: extract the color of image and compare to the csv file
 
-colorname: Get the name of color by it RGB value
+- save_csv_2: save csv file
 
-deltaE: Convert RGB Value to Lab value and compare the difference by DeltaE2000
+- colorname: Get the name of color by it RGB value
 
-remove_bg: remove the background of image
+- deltaE: Convert RGB Value to Lab value and compare the difference by DeltaE2000
 
-silhouette_coeff: Find the best K value and execute k-Means clustering 
+- remove_bg: remove the background of image
+
+- silhouette_coeff: Find the best K value and execute k-Means clustering 
